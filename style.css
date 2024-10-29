@@ -3,10 +3,10 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
     line-height: 1.6;
 }
 
+/* Header styles */
 header {
     background: #282c34;
     color: #ffffff;
@@ -26,6 +26,7 @@ header p {
     color: #bbbbbb;
 }
 
+/* Navigation styles */
 nav {
     background: #444;
     text-align: center;
@@ -37,4 +38,88 @@ nav a {
     color: #ffffff;
     margin: 0 20px;
     text-decoration: none;
-    font-size: 1.2
+    font-size: 1.2em;
+    padding: 8px 15px;
+    transition: background-color 0.1s ease;
+}
+
+nav a:hover {
+    background-color: #282c34;
+    border-radius: 5px;
+}
+
+/* Section styles */
+.section {
+    padding: 60px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* #section1 {
+    background: linear-gradient(to bottom, #a14ba1, #000000);
+}
+
+#section2 {
+    background: linear-gradient(to bottom, #a14ba1, #000000);
+}
+
+#section3 {
+    background: linear-gradient(to bottom, #a14ba1, #000000);
+}
+
+#section4 {
+    background: linear-gradient(to bottom, #a14ba1, #000000);
+}
+
+#section5 {
+    background: linear-gradient(to bottom, #a14ba1, #000000);
+    color: #333;
+} */
+
+/* Make canvas fit the entire screen as a background */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Place behind all other content */
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Prevents interaction with the canvas */
+}
+
+/* Adjust z-index for header, nav, and footer so they appear above the canvas */
+header, nav, footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Footer styles */
+footer {
+    background: #282c34;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav a {
+        display: block;
+        margin: 10px 0;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    .section {
+        padding: 40px 10px;
+    }
+}
