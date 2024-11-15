@@ -5,6 +5,19 @@ let quantumParticles = [];
 const NUM_ELECTRONS = 5;
 const NUM_QUANTUM_PARTICLES = 50;
 
+// Initialize smooth scrolling for navigation
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+});
+
 class Electron {
     constructor(radius) {
         this.pos = createVector(random(width), random(height));
@@ -55,7 +68,7 @@ function setup() {
         electrons.push(new Electron(orbitRadius));
     }
 
-    // Initialize quantum particles for background
+    // Initialize quantum particles
     for (let i = 0; i < NUM_QUANTUM_PARTICLES; i++) {
         quantumParticles.push({
             pos: createVector(random(width), random(height)),
@@ -66,115 +79,143 @@ function setup() {
 }
 
 function draw() {
-    background('#0c0c0c'); // Dark grey background
-
-    // Draw random shapes in the background for a quantum feel
-    drawQuantumBackground();
-
-    // Draw nucleus at the center
+    clear(); // Use clear instead of background for transparency
+    
+    // Update and display quantum particles
+    updateQuantumParticles();
+    
+    // Draw nucleus
+    fill(255, 202, 40, 200); // Yellow with alpha
     noStroke();
-    fill('#ffca28'); // Yellow
-    ellipse(nucleusX, nucleusY, 30, 30);
-
-    // Draw electrons in orbit
-    for (let i = 0; i < electrons.length; i++) {
-        let electron = electrons[i];
-        let electronX = nucleusX + electron.radius * cos(electron.angle);
-        let electronY = nucleusY + electron.radius * sin(electron.angle);
-
-        // Draw the electron
-        fill('#00bcd4'); // Cyan
-        ellipse(electronX, electronY, 15, 15);
-
-        // Increment angle for circular motion
-        electron.angle += 0.05;
-    }
-
-    // Draw the orbit
-    noFill();
-    stroke('#ffffff', 80); // White with transparency
-    ellipse(nucleusX, nucleusY, orbitRadius * 2);
-
-    // Draw electrons following the cursor
-    drawElectronsFollowingCursor();
-
-    // Draw superposition and entanglement effects
-    drawSuperposition();
-    drawEntanglement();
+    ellipse(nucleusX, nucleusY, 30);
+    
+    // Update and display electrons
+    electrons.forEach(electron => {
+        electron.update();
+        electron.display();
+    });
+    
+    // Draw orbit paths
+    drawOrbitPaths();
+    
+    // Draw entanglement effects
+    drawEntanglementEffects();
 }
 
-function drawQuantumBackground() {
-    // Randomly generate abstract "quantum" shapes to add background effects
-    for (let i = 0; i < 3; i++) {
-        let x = random(width);
-        let y = random(height);
-        let size = random(15, 50);
-        let alpha = random(50, 100);
-
-        noFill();
-        stroke('#ffffff', alpha); // White with transparency
+function updateQuantumParticles() {
+    quantumParticles.forEach(particle => {
+        // Update position
+        particle.pos.add(particle.vel);
         
-        // Draw different shapes randomly
-        if (i % 3 == 0) {
-            ellipse(x, y, size, size);
-        } else if (i % 3 == 1) {
-            rect(x, y, size, size);
-        } else {
-            triangle(x, y, x + size, y + size, x + size / 2, y - size / 2);
+        // Wrap around screen edges
+        if (particle.pos.x < 0) particle.pos.x = width;
+        if (particle.pos.x > width) particle.pos.x = 0;
+        if (particle.pos.y < 0) particle.pos.y = height;
+        if (particle.pos.y > height) particle.pos.y = 0;
+        
+        // Draw the particle
+        noStroke();
+        fill(0, 188, 212, 100); // Cyan with low alpha
+        ellipse(particle.pos.x, particle.pos.y, particle.size);
+        
+        // Add a subtle glow effect
+        for (let i = 0; i < 3; i++) {
+            fill(0, 188, 212, 20 - i * 5);
+            ellipse(particle.pos.x, particle.pos.y, particle.size + i * 5);
+        }
+    });
+}
+
+function drawOrbitPaths() {
+    // Draw multiple orbital paths with varying radii
+    for (let i = 0; i < 3; i++) {
+        noFill();
+        stroke(255, 255, 255, 50); // White with low alpha
+        strokeWeight(1);
+        ellipse(nucleusX, nucleusY, (orbitRadius + i * 40) * 2);
+    }
+    
+    // Add quantum uncertainty effect to orbits
+    for (let i = 0; i < TWO_PI; i += 0.2) {
+        let x = nucleusX + orbitRadius * cos(i);
+        let y = nucleusY + orbitRadius * sin(i);
+        let uncertainty = 10;
+        
+        stroke(255, 255, 255, 20);
+        for (let j = 0; j < 3; j++) {
+            let dx = random(-uncertainty, uncertainty);
+            let dy = random(-uncertainty, uncertainty);
+            point(x + dx, y + dy);
         }
     }
 }
 
-function drawElectronsFollowingCursor() {
-    let numFollowingElectrons = 2;
-    let attractionStrength = 0.05;
-    let orbitRadius = 30;
-
-    for (let i = 0; i < numFollowingElectrons; i++) {
-        let electron = electrons[i];
-        let targetX = mouseX + orbitRadius * cos(electron.angle);
-        let targetY = mouseY + orbitRadius * sin(electron.angle);
-
-        // Move electron towards the target position
-        electron.x += (targetX - electron.x) * attractionStrength;
-        electron.y += (targetY - electron.y) * attractionStrength;
-
-        // Draw the electron
-        fill('#00bcd4'); // Cyan
-        ellipse(electron.x, electron.y, 15, 15);
-
-        // Increment angle for circular motion
-        electron.angle += 0.02;
-    }
-}
-
-function drawSuperposition() {
-    // Visualize superposition by drawing overlapping transparent circles
-    let superpositionRadius = 50;
-    let alpha = 100;
-
-    for (let i = 0; i < 5; i++) {
-        let x = nucleusX + random(-superpositionRadius, superpositionRadius);
-        let y = nucleusY + random(-superpositionRadius, superpositionRadius);
-
-        fill('#00bcd4', alpha); // Cyan with transparency
-        ellipse(x, y, 15, 15);
-    }
-}
-
-function drawEntanglement() {
-    // Visualize entanglement by drawing lines connecting pairs of electrons
-    stroke('#ff4081', 100); // Pink with transparency
+function drawEntanglementEffects() {
+    // Draw connection lines between electrons
+    stroke(255, 64, 129, 50); // Pink with low alpha
+    strokeWeight(1);
+    
     for (let i = 0; i < electrons.length; i++) {
         for (let j = i + 1; j < electrons.length; j++) {
-            let electron1 = electrons[i];
-            let electron2 = electrons[j];
-            line(electron1.x, electron1.y, electron2.x, electron2.y);
+            // Calculate distance between electrons
+            let d = dist(
+                electrons[i].pos.x, electrons[i].pos.y,
+                electrons[j].pos.x, electrons[j].pos.y
+            );
+            
+            // Only draw lines if electrons are within a certain distance
+            if (d < orbitRadius * 1.5) {
+                // Make lines more transparent with distance
+                let alpha = map(d, 0, orbitRadius * 1.5, 50, 0);
+                stroke(255, 64, 129, alpha);
+                
+                // Draw the connection line
+                line(
+                    electrons[i].pos.x, electrons[i].pos.y,
+                    electrons[j].pos.x, electrons[j].pos.y
+                );
+                
+                // Add some particle effects along the connection
+                let numParticles = 3;
+                for (let k = 0; k < numParticles; k++) {
+                    let t = k / numParticles;
+                    let x = lerp(electrons[i].pos.x, electrons[j].pos.x, t);
+                    let y = lerp(electrons[i].pos.y, electrons[j].pos.y, t);
+                    
+                    noStroke();
+                    fill(255, 64, 129, alpha);
+                    ellipse(x, y, 4);
+                }
+            }
         }
     }
 }
 
-// Adjust canvas when the window is resized
+// Handle window resize
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    nucleusX = width / 2;
+    nucleusY = height / 2;
+}
+
+// Add mouse interaction
+function mouseMoved() {
+    // Create a subtle attraction force to the mouse
+    electrons.forEach(electron => {
+        let mousePos = createVector(mouseX, mouseY);
+        let dir = p5.Vector.sub(mousePos, electron.pos);
+        let d = dir.mag();
+        
+        if (d < 200) {
+            dir.normalize();
+            dir.mult(0.5);
+            electron.vel.add(dir);
+        }
+    });
+}
+
+// Add touch interaction for mobile devices
+function touchMoved() {
+    mouseMoved();
+    return false; // Prevent default
 }

@@ -5,55 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Computing 101</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
+    <div id="p5-container"></div>
+    
     <header>
         <h1>Quantum Computing 101</h1>
-        <p>A Beginner's Guide for Computer Science Students</p>
+        <p>Exploring the Future of Computation</p>
     </header>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-<script src="script.js"></script>
-
+    
     <nav>
         <a href="#section1">Home</a>
         <a href="#section2">Introduction</a>
-        <a href="#section3">Why Quantum Computing?</a>
-        <a href="#section4">What You’ll Learn</a>
+        <a href="#section3">Why Quantum?</a>
+        <a href="#section4">Learning Path</a>
         <a href="#section5">Resources</a>
     </nav>
     
     <div id="section1" class="section">
         <h2>Welcome to Quantum Computing!</h2>
-        <p>This website provides an introduction to quantum computing for undergraduate students with a computer science background. No advanced physics or mathematics required!</p>
+        <p>Dive into the fascinating world of quantum computation, where the rules of classical physics give way to quantum mechanics, opening up unprecedented possibilities in computing.</p>
+        <div class="feature-box">
+            <h4>Interactive Learning</h4>
+            <p>Watch the quantum particles interact on your screen! The visualization represents a simplified model of quantum behavior.</p>
+        </div>
     </div>
     
     <div id="section2" class="section">
         <h3>Introduction to Quantum Computing</h3>
-        <p>Quantum computing leverages quantum mechanics to solve problems more efficiently than classical computers, impacting fields like cryptography and AI.</p>
+        <div class="content-grid">
+            <div class="grid-item">
+                <h4>Quantum Bits (Qubits)</h4>
+                <p>Unlike classical bits that can be either 0 or 1, qubits can exist in multiple states simultaneously through superposition.</p>
+            </div>
+            <div class="grid-item">
+                <h4>Superposition</h4>
+                <p>The ability of quantum systems to exist in multiple states at once, enabling parallel processing capabilities.</p>
+            </div>
+            <div class="grid-item">
+                <h4>Entanglement</h4>
+                <p>A quantum phenomenon where particles become correlated in ways that classical physics cannot explain.</p>
+            </div>
+        </div>
     </div>
     
     <div id="section3" class="section">
         <h3>Why Quantum Computing?</h3>
-        <p>Quantum computers can solve specific complex problems that would take classical computers years. They are critical in optimizing complex systems and handling massive data.</p>
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <h4>Unprecedented Processing Power</h4>
+                <p>Solve complex problems in hours that would take classical computers millions of years.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Cryptography Revolution</h4>
+                <p>Transform data security with quantum encryption methods.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Scientific Breakthroughs</h4>
+                <p>Enable molecular simulations for drug discovery and materials science.</p>
+            </div>
+        </div>
     </div>
     
     <div id="section4" class="section">
-        <h3>What You’ll Learn</h3>
-        <ul>
-            <li>Basic concepts of quantum computing</li>
-            <li>Key quantum algorithms</li>
-            <li>Quantum computing resources</li>
-            <li>Links to further reading and tools</li>
-        </ul>
+        <h3>Learning Path</h3>
+        <div class="learning-path">
+            <div class="path-item">
+                <h4>1. Fundamentals</h4>
+                <ul>
+                    <li>Classical vs Quantum Computing</li>
+                    <li>Quantum Mechanics Basics</li>
+                    <li>Linear Algebra Review</li>
+                </ul>
+            </div>
+            <div class="path-item">
+                <h4>2. Core Concepts</h4>
+                <ul>
+                    <li>Quantum Gates and Circuits</li>
+                    <li>Quantum Algorithms</li>
+                    <li>Quantum Error Correction</li>
+                </ul>
+            </div>
+            <div class="path-item">
+                <h4>3. Advanced Topics</h4>
+                <ul>
+                    <li>Quantum Machine Learning</li>
+                    <li>Quantum Cryptography</li>
+                    <li>Quantum Programming</li>
+                </ul>
+            </div>
+        </div>
     </div>
-
+    
     <div id="section5" class="section">
         <h3>Resources</h3>
-        <p>Explore curated external links, books, and video lectures to deepen your understanding of quantum computing.</p>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <h4>Online Courses</h4>
+                <ul>
+                    <li>MIT OpenCourseWare: Quantum Computation</li>
+                    <li>Coursera: Quantum Computing Specialization</li>
+                    <li>edX: Quantum Computing Fundamentals</li>
+                </ul>
+            </div>
+            <div class="resource-card">
+                <h4>Tools & Platforms</h4>
+                <ul>
+                    <li>IBM Quantum Experience</li>
+                    <li>Google Cirq</li>
+                    <li>Microsoft Q#</li>
+                </ul>
+            </div>
+            <div class="resource-card">
+                <h4>Books</h4>
+                <ul>
+                    <li>Quantum Computing: A Gentle Introduction</li>
+                    <li>Programming Quantum Computers</li>
+                    <li>Quantum Computing for Everyone</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Quantum Computing 101 | Created by Shobhit Singh</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
